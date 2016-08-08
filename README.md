@@ -1,2 +1,3 @@
 # BattleMeister
-Code to solve the  Dragon Resources Management  http://www.dragonsofmugloar.com/
+Code to solve the  Dragon Resources Management 
+http://www.dragonsofmugloar.com/
