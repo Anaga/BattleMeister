@@ -1,0 +1,2 @@
+python BattleMeister.py
+pause
