@@ -8,6 +8,15 @@ URL_GAME     = 'http://www.dragonsofmugloar.com/api/game'
 URL_WEATHER  = 'http://www.dragonsofmugloar.com/weather/api/report/{%d}'
 URL_BATTLE   = 'http://www.dragonsofmugloar.com/api/game/{%d}/solution'
 
+DRAGON_STRING = '''{"dragon":{
+                 "scaleThickness": %d,
+                 "clawSharpness": %d,
+                 "wingStrength": %d,
+                 "fireBreath": %d}
+                 }'''
+
+
+
 def getStrRepres(char, number):
  s = ''
  for i in range(number):
@@ -15,20 +24,11 @@ def getStrRepres(char, number):
  return s
  
 def newDragon(scaleThickness, clawSharpness, wingStrength, fireBreath):
-    sDrag = '''{ "dragon": {
-                 "scaleThickness": %d,
-                 "clawSharpness": %d,
-                 "wingStrength": %d,
-                 "fireBreath": %d}
-                 } '''% (scaleThickness, clawSharpness, wingStrength, fireBreath)
-                 
-    return sDrag
+    return DRAGON_STRING % (scaleThickness, clawSharpness, wingStrength, fireBreath)
 
 def putDragonToFigth(gameId, dragon):
- 
  print "Game ID = %d" % gameId
- #print "Dragon = %s" % dragon
- 
+ #print "Dragon = %s" % dragon 
  battle_url = URL_BATTLE % (gameId) 
  """
  Request Lib:
@@ -44,8 +44,7 @@ def putDragonToFigth(gameId, dragon):
  print "\n Test2"
  r = requests.put(battle_url, dragon)
  if r.status_code == requests.codes.ok: print r.content
- print "Not work yet"
- return
+
  print "\n Test3"
  r = requests.put(battle_url, "Abc")
  if r.status_code == requests.codes.ok: print r.content
@@ -69,6 +68,8 @@ def putDragonToFigth(gameId, dragon):
  data = {"Dragon" : {"dragon":{"scaleThickness":5,"clawSharpness":5,"wingStrength":5,"fireBreath":5}}}
  r = requests.put(battle_url, json=data)
  if r.status_code == requests.codes.ok: print r.content
+ print "Not work yet"
+ return
 
 def getWeather(gameId):
  wether_url = URL_WEATHER%gameId
@@ -110,6 +111,8 @@ def getKnight(knight_dict):
 def getNewGame():
  game_url = URL_GAME
  r = requests.get(game_url)
+ print "New Game string:"
+ print r.content
  print_game(r.json())
   
 def print_game(dic_game_info):
@@ -145,6 +148,7 @@ def print_game(dic_game_info):
  putDragonToFigth(gameId, dragon)
  print "Fight is over :( \n"
 
+'''{"gameId":5661739,"knight":{"name":"Sir. Miguel Peters of Alberta","attack":4,"armor":3,"agility":7,"endurance":6}}'''
 inp = '''{"gameId":1893314,"knight":{"name":"Sir. Ralph Carlson of New Brunswick","attack":8,"armor":5,"agility":2,"endurance":5}}'''
 info = json.loads(inp)
 #print_game(info)
@@ -163,11 +167,11 @@ info = json.loads(inp)
 
 inp = '''{"gameId":1135436,"knight":{"name":"Sir. Roy Welch of Manitoba","attack":0,"armor":7,"agility":6,"endurance":7}}'''
 info = json.loads(inp)
-print_game(info)
+#print_game(info)
 
 inp = ''' {"gameId":515604,"knight":{"name":"Sir. Albert Simpson of Saskatchewan","attack":1,"armor":3,"agility":8,"endurance":8}}'''
-info = json.loads(inp)
-print_game(info)
+#info = json.loads(inp)
+#print_game(info)
 
 getNewGame()
 
