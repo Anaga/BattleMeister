@@ -26,13 +26,41 @@ def newDragon(scaleThickness, clawSharpness, wingStrength, fireBreath):
 
 def putDragonToFigth(gameId, dragon):
  print "Game ID = %d" % gameId
- #print "Dragon = %s" % dragon 
+ print "Dragon = %s" % dragon 
  battle_url = URL_BATTLE % (gameId) 
  """
  Request Lib:
  http://docs.python-requests.org/en/master/user/quickstart/
  >>> r = requests.put('http://httpbin.org/put', data = {'key':'value'})
  >>> r = requests.options('http://httpbin.org/get')
+ r = requests.get('https://api.github.com/events')
+ 'http://www.dragonsofmugloar.com/api/game/{%d}/solution'
+ r = requests.get('http://www.dragonsofmugloar.com/api/game')
+ >>> r.content
+ '{"gameId":39656,"knight":{"name":"Sir. Angel Torres of Newfoundland and Labrado
+ r","attack":2,"armor":8,"agility":5,"endurance":5}}'
+ r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution')
+ r.content
+ 
+ r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution', data = {'key':'value'})
+ r.content
+ Dragon = '''{'dragon':{
+                 'scaleThickness': 5,
+                 'clawSharpness': 5,
+                 'wingStrength': 5,
+                 'fireBreath': 5}
+                 }'''
+ 
+ payload = {'key1': 'value1', 'key2': 'value2'}
+ r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution',Dragon)
+ r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution',{'dragon':{'scaleThickness':'5','clawSharpness':'5','wingStrength':'5','fireBreath':'5'}})
+ '''{'dragon':{'scaleThickness': 5,'clawSharpness': 5,'wingStrength': 5,'fireBreath': 5}}'''
+ 
+ r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution', data = {'dragon':{'scaleThickness':'5','clawSharpness':'5','wingStrength':'5','fireBreath':'5'}})
+ '
+ 
+ verbs = requests.options('http://www.dragonsofmugloar.com/api/game/{39656}/solution')
+ print(verbs.headers['allow'])
  """
  
  print "\n Test 1"
