@@ -15,8 +15,6 @@ DRAGON_STRING = '''{"dragon":{
                  "fireBreath": %d}
                  }'''
 
-
-
 def getStrRepres(char, number):
  s = ''
  for i in range(number):
@@ -148,30 +146,15 @@ def print_game(dic_game_info):
  putDragonToFigth(gameId, dragon)
  print "Fight is over :( \n"
 
-'''{"gameId":5661739,"knight":{"name":"Sir. Miguel Peters of Alberta","attack":4,"armor":3,"agility":7,"endurance":6}}'''
-inp = '''{"gameId":1893314,"knight":{"name":"Sir. Ralph Carlson of New Brunswick","attack":8,"armor":5,"agility":2,"endurance":5}}'''
-info = json.loads(inp)
-#print_game(info)
-
-inp = '''{"gameId":4359863,"knight":{"name":"Sir. Terry Briggs of British Columbia","attack":8,"armor":3,"agility":3,"endurance":6}}'''
-info = json.loads(inp)
-#print_game(info)
-
-inp = ''' {"gameId":7768841,"knight":{"name":"Sir. Jeremy Hammond of Ontario","attack":6,"armor":4,"agility":2,"endurance":8}}'''
-info = json.loads(inp)
-#print_game(info)
-
-inp = '''{"gameId":5295543,"knight":{"name":"Sir. Chad Norman of Nunavut","attack":4,"armor":8,"agility":4,"endurance":4}}'''
-info = json.loads(inp)
-#print_game(info)
-
-inp = '''{"gameId":1135436,"knight":{"name":"Sir. Roy Welch of Manitoba","attack":0,"armor":7,"agility":6,"endurance":7}}'''
-info = json.loads(inp)
-#print_game(info)
-
-inp = ''' {"gameId":515604,"knight":{"name":"Sir. Albert Simpson of Saskatchewan","attack":1,"armor":3,"agility":8,"endurance":8}}'''
-#info = json.loads(inp)
-#print_game(info)
-
+game_sets = [
+'''{"gameId":5661739,"knight":{"name":"Sir. Miguel Peters of Alberta","attack":4,"armor":3,"agility":7,"endurance":6}}''',
+'''{"gameId":1893314,"knight":{"name":"Sir. Ralph Carlson of New Brunswick","attack":8,"armor":5,"agility":2,"endurance":5}}''',
+'''{"gameId":4359863,"knight":{"name":"Sir. Terry Briggs of British Columbia","attack":8,"armor":3,"agility":3,"endurance":6}}''',
+'''{"gameId":7768841,"knight":{"name":"Sir. Jeremy Hammond of Ontario","attack":6,"armor":4,"agility":2,"endurance":8}}''',
+'''{"gameId":5295543,"knight":{"name":"Sir. Chad Norman of Nunavut","attack":4,"armor":8,"agility":4,"endurance":4}}''',
+'''{"gameId":1135436,"knight":{"name":"Sir. Roy Welch of Manitoba","attack":0,"armor":7,"agility":6,"endurance":7}}''',
+'''{"gameId":515604, "knight":{"name":"Sir. Albert Simpson of Saskatchewan","attack":1,"armor":3,"agility":8,"endurance":8}}''',
+'''{"gameId":7499510,"knight":{"name":"Sir. Scott Wright of Nunavut","attack":5,"armor":2,"agility":6,"endurance":7}}'''
+]
 getNewGame()
 
