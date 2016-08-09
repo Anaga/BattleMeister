@@ -1,6 +1,8 @@
 import json
 import xml.etree.ElementTree as ET
 import requests
+import urllib2
+
 
 NORMAL_WEATHER = "normal regular weather"
 
@@ -28,73 +30,15 @@ def putDragonToFigth(gameId, dragon):
  print "Game ID = %d" % gameId
  print "Dragon = %s" % dragon 
  battle_url = URL_BATTLE % (gameId) 
- """
- Request Lib:
- http://docs.python-requests.org/en/master/user/quickstart/
- >>> r = requests.put('http://httpbin.org/put', data = {'key':'value'})
- >>> r = requests.options('http://httpbin.org/get')
- r = requests.get('https://api.github.com/events')
- 'http://www.dragonsofmugloar.com/api/game/{%d}/solution'
- r = requests.get('http://www.dragonsofmugloar.com/api/game')
- >>> r.content
- '{"gameId":39656,"knight":{"name":"Sir. Angel Torres of Newfoundland and Labrado
- r","attack":2,"armor":8,"agility":5,"endurance":5}}'
- r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution')
- r.content
  
- r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution', data = {'key':'value'})
- r.content
- Dragon = '''{'dragon':{
-                 'scaleThickness': 5,
-                 'clawSharpness': 5,
-                 'wingStrength': 5,
-                 'fireBreath': 5}
-                 }'''
+ opener = urllib2.build_opener(urllib2.HTTPHandler)
+ request = urllib2.Request(battle_url, dragon)
+ request.add_header('Content-Type', 'application/json; charset=utf-8')
+ request.get_method = lambda: 'PUT'
+ print "test2"
+ resp = opener.open(request)
+ print resp.read(100)
  
- payload = {'key1': 'value1', 'key2': 'value2'}
- r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution',Dragon)
- r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution',{'dragon':{'scaleThickness':'5','clawSharpness':'5','wingStrength':'5','fireBreath':'5'}})
- '''{'dragon':{'scaleThickness': 5,'clawSharpness': 5,'wingStrength': 5,'fireBreath': 5}}'''
- 
- r = requests.put('http://www.dragonsofmugloar.com/api/game/{39656}/solution', data = {'dragon':{'scaleThickness':'5','clawSharpness':'5','wingStrength':'5','fireBreath':'5'}})
- '
- 
- verbs = requests.options('http://www.dragonsofmugloar.com/api/game/{39656}/solution')
- print(verbs.headers['allow'])
- """
- 
- print "\n Test 1"
- r = requests.options(battle_url)
- if r.status_code == requests.codes.ok: print r.content
- 
- print "\n Test2"
- r = requests.put(battle_url, dragon)
- if r.status_code == requests.codes.ok: print r.content
-
- print "\n Test3"
- r = requests.put(battle_url, "Abc")
- if r.status_code == requests.codes.ok: print r.content
- 
- print "\n Test4"
- data = {"Dragon" : {"dragon":{"scaleThickness":5,"clawSharpness":5,"wingStrength":5,"fireBreath":5}}}
- r = requests.put(battle_url, data)
- if r.status_code == requests.codes.ok: print r.content
- 
- print "\n Test5"
- data = {"dragon":{"scaleThickness":5,"clawSharpness":5,"wingStrength":5,"fireBreath":5}}
- r = requests.put(battle_url, data)
- if r.status_code == requests.codes.ok: print r.content
- 
- print "\n Test6"
- data = {"Dragon" : '{"dragon":{"scaleThickness":5,"clawSharpness":5,"wingStrength":5,"fireBreath":5}}'}
- r = requests.put(battle_url, data)
- if r.status_code == requests.codes.ok: print r.content
-  
- print "\n Test7"
- data = {"Dragon" : {"dragon":{"scaleThickness":5,"clawSharpness":5,"wingStrength":5,"fireBreath":5}}}
- r = requests.put(battle_url, json=data)
- if r.status_code == requests.codes.ok: print r.content
- print "Not work yet"
  return
 
 def getWeather(gameId):
@@ -174,15 +118,26 @@ def print_game(dic_game_info):
  putDragonToFigth(gameId, dragon)
  print "Fight is over :( \n"
 
-game_sets = [
-'''{"gameId":5661739,"knight":{"name":"Sir. Miguel Peters of Alberta","attack":4,"armor":3,"agility":7,"endurance":6}}''',
-'''{"gameId":1893314,"knight":{"name":"Sir. Ralph Carlson of New Brunswick","attack":8,"armor":5,"agility":2,"endurance":5}}''',
-'''{"gameId":4359863,"knight":{"name":"Sir. Terry Briggs of British Columbia","attack":8,"armor":3,"agility":3,"endurance":6}}''',
-'''{"gameId":7768841,"knight":{"name":"Sir. Jeremy Hammond of Ontario","attack":6,"armor":4,"agility":2,"endurance":8}}''',
-'''{"gameId":5295543,"knight":{"name":"Sir. Chad Norman of Nunavut","attack":4,"armor":8,"agility":4,"endurance":4}}''',
-'''{"gameId":1135436,"knight":{"name":"Sir. Roy Welch of Manitoba","attack":0,"armor":7,"agility":6,"endurance":7}}''',
-'''{"gameId":515604, "knight":{"name":"Sir. Albert Simpson of Saskatchewan","attack":1,"armor":3,"agility":8,"endurance":8}}''',
-'''{"gameId":7499510,"knight":{"name":"Sir. Scott Wright of Nunavut","attack":5,"armor":2,"agility":6,"endurance":7}}'''
-]
+game_sets = [ """
+{"gameId":5661739,"knight":{"name":"Sir. Miguel Peters of Alberta","attack":4,"armor":3,"agility":7,"endurance":6}}
+{"gameId":1893314,"knight":{"name":"Sir. Ralph Carlson of New Brunswick","attack":8,"armor":5,"agility":2,"endurance":5}}
+{"gameId":4359863,"knight":{"name":"Sir. Terry Briggs of British Columbia","attack":8,"armor":3,"agility":3,"endurance":6}}
+{"gameId":7768841,"knight":{"name":"Sir. Jeremy Hammond of Ontario","attack":6,"armor":4,"agility":2,"endurance":8}}
+{"gameId":5295543,"knight":{"name":"Sir. Chad Norman of Nunavut","attack":4,"armor":8,"agility":4,"endurance":4}}
+{"gameId":1135436,"knight":{"name":"Sir. Roy Welch of Manitoba","attack":0,"armor":7,"agility":6,"endurance":7}}
+{"gameId":515604, "knight":{"name":"Sir. Albert Simpson of Saskatchewan","attack":1,"armor":3,"agility":8,"endurance":8}}
+{"gameId":4681585,"knight":{"name":"Sir. Dustin Hawkins of Nunavut","attack":0,"armor":6,"agility":6,"endurance":8}}
+{"gameId":7499510,"knight":{"name":"Sir. Scott Wright of Nunavut","attack":5,"armor":2,"agility":6,"endurance":7}}
+{"gameId":9895445,"knight":{"name":"Sir. Christian Lucas of Quebec","attack":2,"armor":5,"agility":7,"endurance":6}}
+{"gameId":3992409,"knight":{"name":"Sir. Franklin Sanders of New Brunswick","attack":1,"armor":7,"agility":5,"endurance":7}}
+"""]
 getNewGame()
 
+dragon = newDragon(10,1,1,8)
+putDragonToFigth(4681585, dragon)
+
+dragon = newDragon(10,8,1,1)
+putDragonToFigth(4681585, dragon)
+
+dragon = newDragon(3,8,1,8)
+putDragonToFigth(4681585, dragon)
