@@ -208,6 +208,14 @@ This dragon WINNN!!
                  "fireBreath": 10}
                  }
                  
+This dragon WINNN!!
+{"dragon":{
+                 "scaleThickness": 6,
+                 "clawSharpness": 2,
+                 "wingStrength": 2,
+                 "fireBreath": 10}
+                 }
+[4, 3, 6, 7]
 """
 
 game_string = '{"gameId":4681585,"knight":{"name":"Sir. Dustin Hawkins of Nunavut","attack":0,"armor":6,"agility":6,"endurance":8}}'
