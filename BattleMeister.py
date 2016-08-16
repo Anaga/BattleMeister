@@ -39,7 +39,7 @@ def newRandomDragon():
              n = random.randint(0, MAX_STAT)
              sum += n
              param_list.append(n)
-    print param_list
+    print "Drag: ", str(param_list)
     return newDragon(param_list[0],param_list[1],param_list[2],param_list[3])
 
 def putDragonToFigth(gameId, dragon):
@@ -52,10 +52,11 @@ def putDragonToFigth(gameId, dragon):
  request.get_method = lambda: 'PUT'
  resp = opener.open(request)
  battle_result = resp.read(200)
- print battle_result
+ #print battle_result
  battle_info = json.loads(battle_result)
  stat = battle_info.get("status")
  mess = battle_info.get("message")
+ 
  #print stat
  return stat, mess
  
@@ -124,15 +125,19 @@ def tryRandomDrago(game_string):
  gameId = getGameId(game_string)
  newKn  = getKnight(game_string)
  for i in range(100):
+    print 
     dragon = newRandomDragon()
     status, mess = putDragonToFigth(gameId, dragon)
+    print "Knig: ", str(newKn[1])
+    if "Defeat" in status:
+        message_words = mess.split()
+        print message_words[-1]
+    
     if "Defeat" not in status:
         print "This dragon WINNN!!"
         print dragon
     
-    
- 
- 
+   
  
 def print_game(dic_game_info):
  if dic_game_info.get("gameId") == None:
@@ -216,9 +221,32 @@ This dragon WINNN!!
                  "fireBreath": 10}
                  }
 [4, 3, 6, 7]
+
+kn:  [6, 6, 0, 8]
+This dragon WINNN!!
+{"dragon":{
+                 "scaleThickness": 4,
+                 "clawSharpness": 4,
+                 "wingStrength": 2,
+                 "fireBreath": 10}
+                 }
+[8, 5, 5, 2]
+
+
+
+Drag:  [4, 4, 2, 10]
+Knig:  [6, 2, 7, 5]
+This dragon WINNN!!
+{"dragon":{
+                 "scaleThickness": 4,
+                 "clawSharpness": 4,
+                 "wingStrength": 2,
+                 "fireBreath": 10}
+                 }
+                 
 """
 
 game_string = '{"gameId":4681585,"knight":{"name":"Sir. Dustin Hawkins of Nunavut","attack":0,"armor":6,"agility":6,"endurance":8}}'
-
+game_string = '{"gameId":7520527,"knight":{"name":"Sir. Carl Johnson of Newfoundland and Labrador","attack":7,"armor":2,"agility":6,"endurance":5}}'
 tryRandomDrago(game_string)
 
