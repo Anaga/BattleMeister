@@ -26,6 +26,23 @@ def getStrRepres(char, number):
 def newDragon(scaleThickness, clawSharpness, wingStrength, fireBreath):
     return DRAGON_STRING % (scaleThickness, clawSharpness, wingStrength, fireBreath)
 
+
+def newRandomFireDragon():
+    MAX_STAT = 10
+    TOTAL_POINTS = 20    
+    sum = 0;    
+    while sum!= TOTAL_POINTS:
+         param_list = list()
+         sum = 9;
+         for i in range(3):
+             n = random.randint(1, MAX_STAT)
+             sum += n
+             param_list.append(n)
+         param_list.append(9)
+    print "Drag: ", str(param_list)
+    return newDragon(param_list[0],param_list[1],param_list[2],param_list[3])
+    
+
 def newRandomDragon():
     MAX_STAT = 10
     TOTAL_POINTS = 20
@@ -41,7 +58,7 @@ def newRandomDragon():
              param_list.append(n)
     print "Drag: ", str(param_list)
     return newDragon(param_list[0],param_list[1],param_list[2],param_list[3])
-
+    
 def putDragonToFigth(gameId, dragon):
  #print "Game ID = %d" % gameId
 # print "Dragon = %s" % dragon 
@@ -122,10 +139,27 @@ def getNewGame():
  putDragonToFigth(gameId, dragon)   
 
 def tryRandomDrago(game_string):
+ win_list = list()
+ win_Fire_count = 0
+ win_Random_count = 0
  gameId = getGameId(game_string)
  newKn  = getKnight(game_string)
- for i in range(100):
-    print 
+ for i in range(300):
+    print     
+    dragon = newRandomFireDragon()
+    status, mess = putDragonToFigth(gameId, dragon)
+    print "Knig: ", str(newKn[1])
+    if "Defeat" in status:
+        message_words = mess.split()
+        print message_words[-1]
+    
+    if "Defeat" not in status:
+        print "This dragon WINNN!!"
+        print dragon
+        win_list.append(dragon)
+        win_Fire_count += 1
+        
+        
     dragon = newRandomDragon()
     status, mess = putDragonToFigth(gameId, dragon)
     print "Knig: ", str(newKn[1])
@@ -136,8 +170,13 @@ def tryRandomDrago(game_string):
     if "Defeat" not in status:
         print "This dragon WINNN!!"
         print dragon
+        win_list.append(dragon)
+        win_Random_count += 1
     
-   
+ print "win list"  
+ print win_list
+ print win_Fire_count
+ print win_Random_count
  
 def print_game(dic_game_info):
  if dic_game_info.get("gameId") == None:
@@ -245,6 +284,19 @@ This dragon WINNN!!
                  }
                  
 """
+
+"""
+Drag:  [5, 2, 3, 10]
+Knig:  [6, 2, 7, 5]
+This dragon WINNN!!
+{"dragon":{
+                 "scaleThickness": 5,
+                 "clawSharpness": 2,
+                 "wingStrength": 3,
+                 "fireBreath": 10}
+                 }
+"""                 
+
 
 game_string = '{"gameId":4681585,"knight":{"name":"Sir. Dustin Hawkins of Nunavut","attack":0,"armor":6,"agility":6,"endurance":8}}'
 game_string = '{"gameId":7520527,"knight":{"name":"Sir. Carl Johnson of Newfoundland and Labrador","attack":7,"armor":2,"agility":6,"endurance":5}}'
