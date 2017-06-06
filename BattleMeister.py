@@ -16,7 +16,7 @@ DRAGON_STRING = '''{"dragon":{
                  "wingStrength": %d,
                  "fireBreath": %d}
                  }'''
-
+NewString="Test"
 def getStrRepres(char, number):
  s = ''
  for i in range(number):
